@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // <== TODO: Template ==> //
+    #region Enumerations
     // The different states that the player can be in
     public enum State
     {
@@ -12,11 +13,15 @@ public class PlayerController : MonoBehaviour
         FLYING,
         GROUNDED
     }
+    #endregion
 
+    #region Instance Variables
     public State state;
     private Rigidbody playerRb;
     // <== TODO: Add public variable to Game Manager Script ==> //
+    #endregion
 
+    #region Method Overrides
     // Start is called before the first frame update
     void Start()
     {
@@ -42,4 +47,5 @@ public class PlayerController : MonoBehaviour
             
         }
     }
+    #endregion
 }
