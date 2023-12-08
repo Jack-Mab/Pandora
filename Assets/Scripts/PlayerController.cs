@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public State state;
     public float speed;
     public float rotationSpeed;
+    public float rollingSpeed;
     public float rotationAngle;
     public GameObject focalPoint;
     private Rigidbody playerRb;
@@ -29,12 +30,11 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        state = State.GROUNDED;
         playerRb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         // Get User input
@@ -58,7 +58,9 @@ public class PlayerController : MonoBehaviour
 
             // rotate player
             transform.rotation = Quaternion.Slerp(transform.rotation, targetOrientation, rotationSpeed);
-            transform.Translate(horizontalInput * rotationSpeed * Time.deltaTime * focalPoint.transform.right);
+            //transform.Translate(horizontalInput * rotationSpeed * Time.deltaTime * focalPoint.transform.right);
+            playerRb.AddForce(horizontalInput * rollingSpeed * Time.deltaTime * focalPoint.transform.right,
+                ForceMode.Impulse);
 
             // Land player
             if (Input.GetKeyDown(KeyCode.F))
@@ -67,8 +69,8 @@ public class PlayerController : MonoBehaviour
             }
         } else if (state == State.GROUNDED)
         {
-            playerRb.AddForce(speed * verticalInput * focalPoint.transform.forward); // Move the player forward
-            focalPoint.transform.Rotate(focalPoint.transform.up, rotationSpeed * horizontalInput); // Rotate camera around player
+            playerRb.AddForce(speed * verticalInput * Time.deltaTime * focalPoint.transform.forward); // Move the player forward
+            focalPoint.transform.Rotate(focalPoint.transform.up, rotationSpeed * -horizontalInput); // Rotate camera around player
 
             // Player takes off
             if (Input.GetKeyDown(KeyCode.F))
@@ -89,15 +91,15 @@ public class PlayerController : MonoBehaviour
                 playerRb.useGravity = true;
                 // <== TODO: Transition to Idle Animation ==> //
                 // <== TODO: Transition to upright posture ==> //
-                transform.Rotate(Vector3.right, -90);
+                //transform.Rotate(Vector3.right, 90);
                 break;
             case State.FLYING:
                 playerRb.useGravity = false;
                 // <== TODO: Transition to Flight Animation ==> //
                 // <== TODO: Transition to flight posture ==> //
-                //transform.Translate(speed * Time.deltaTime * Vector3.up);
                 transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-                transform.Rotate(Vector3.right, 90);
+                focalPoint.transform.rotation = Quaternion.Euler(0, 0, 0);
+                //transform.Rotate(Vector3.right, -90);
                 break;
         }
     }
