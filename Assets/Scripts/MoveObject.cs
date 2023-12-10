@@ -10,6 +10,7 @@ public class MoveObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
         playerControllerScript = player.GetComponent<PlayerController>();
     }
 

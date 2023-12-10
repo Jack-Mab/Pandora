@@ -49,18 +49,18 @@ public class PlayerController : MonoBehaviour
         } else if (state == State.FLYING)
         {
             // Change the player's pitch, yaw and roll
-
+            Vector3 currentOrientation = transform.rotation.eulerAngles;
             float pitch = verticalInput * rotationAngle;
+            float yaw = currentOrientation.y;
             float roll = horizontalInput * rotationAngle;
-            float yaw = 0;
 
             Quaternion targetOrientation = Quaternion.Euler(pitch, yaw, -roll);
 
-            // rotate player
+            // roll player
             transform.rotation = Quaternion.Slerp(transform.rotation, targetOrientation, rotationSpeed);
-            //transform.Translate(horizontalInput * rotationSpeed * Time.deltaTime * focalPoint.transform.right);
-            playerRb.AddForce(horizontalInput * rollingSpeed * Time.deltaTime * focalPoint.transform.right,
-                ForceMode.Impulse);
+            Vector3 newPosition = horizontalInput * rollingSpeed * Time.deltaTime * focalPoint.transform.right;
+
+            playerRb.MovePosition(transform.position + newPosition); // Move player sideways
 
             // Land player
             if (Input.GetKeyDown(KeyCode.F))
@@ -89,16 +89,19 @@ public class PlayerController : MonoBehaviour
         {
             case State.GROUNDED:
                 playerRb.useGravity = true;
+                playerRb.constraints = RigidbodyConstraints.None;
                 // <== TODO: Transition to Idle Animation ==> //
                 // <== TODO: Transition to upright posture ==> //
                 //transform.Rotate(Vector3.right, 90);
                 break;
             case State.FLYING:
                 playerRb.useGravity = false;
+                playerRb.constraints = RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+                playerRb.constraints |= RigidbodyConstraints.FreezeRotationY;
                 // <== TODO: Transition to Flight Animation ==> //
                 // <== TODO: Transition to flight posture ==> //
                 transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
-                focalPoint.transform.rotation = Quaternion.Euler(0, 0, 0);
+                focalPoint.transform.rotation = transform.rotation; //Quaternion.Euler(0, 0, 0);
                 //transform.Rotate(Vector3.right, -90);
                 break;
         }
