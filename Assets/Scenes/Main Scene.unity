@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 527284329}
   - component: {fileID: 527284328}
   m_Layer: 0
-  m_Name: 'Game Manager '
+  m_Name: Game Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mountainPrefab: {fileID: 3521994051431299800, guid: a73f1e069ef2ce74c9e3e150140cce39, type: 3}
+  gameOver: 0
 --- !u!4 &527284329
 Transform:
   m_ObjectHideFlags: 0
@@ -413,6 +414,7 @@ GameObject:
   - component: {fileID: 1685171390}
   - component: {fileID: 1685171389}
   - component: {fileID: 1685171388}
+  - component: {fileID: 1685171392}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -507,6 +509,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1685171392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1685171387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6a50e6ae3d91244598aea44c11c62df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  speed: 10
 --- !u!1 &2109339564
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,7 +539,7 @@ GameObject:
   - component: {fileID: 2109339570}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -656,7 +672,7 @@ MonoBehaviour:
   state: 1
   speed: 500
   rotationSpeed: 2
-  rollingSpeed: 2
+  rollingSpeed: 10
   rotationAngle: 30
   focalPoint: {fileID: 1293718182}
 --- !u!1001 &3762607484825619414
@@ -667,21 +683,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 32028107879950270, guid: a73f1e069ef2ce74c9e3e150140cce39, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 2109339564}
     - target: {fileID: 3521994051431299800, guid: a73f1e069ef2ce74c9e3e150140cce39, type: 3}
       propertyPath: m_Name
       value: Mountain
-      objectReference: {fileID: 0}
-    - target: {fileID: 3521994051431299800, guid: a73f1e069ef2ce74c9e3e150140cce39, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5659698359045670178, guid: a73f1e069ef2ce74c9e3e150140cce39, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9195656367863423968, guid: a73f1e069ef2ce74c9e3e150140cce39, type: 3}
       propertyPath: m_LocalPosition.x
@@ -689,11 +693,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9195656367863423968, guid: a73f1e069ef2ce74c9e3e150140cce39, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2
+      value: 20.5
       objectReference: {fileID: 0}
     - target: {fileID: 9195656367863423968, guid: a73f1e069ef2ce74c9e3e150140cce39, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4
+      value: 159.5
       objectReference: {fileID: 0}
     - target: {fileID: 9195656367863423968, guid: a73f1e069ef2ce74c9e3e150140cce39, type: 3}
       propertyPath: m_LocalRotation.w
@@ -728,6 +732,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a73f1e069ef2ce74c9e3e150140cce39, type: 3}
+--- !u!1001 &7126403550861175287
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1175207049694093078, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175207049694093078, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 20.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175207049694093078, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 144.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175207049694093078, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175207049694093078, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175207049694093078, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175207049694093078, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175207049694093078, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175207049694093078, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175207049694093078, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859552633353012782, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
+      propertyPath: m_Name
+      value: Mountain (Unobtanium Variant)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 652f687d07c5dbd4088cfd9e61e33bdb, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -737,4 +798,5 @@ SceneRoots:
   - {fileID: 1685171391}
   - {fileID: 1293718183}
   - {fileID: 3762607484825619414}
+  - {fileID: 7126403550861175287}
   - {fileID: 527284329}
