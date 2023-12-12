@@ -4,23 +4,32 @@ using UnityEngine;
 
 public class MoveObject : MonoBehaviour
 {
+    #region Instance Variables
+    // Public Variables
     public GameObject player;
     public float speed;
+
+    // Private Variables
     private PlayerController playerControllerScript;
-    // Start is called before the first frame update
+    private Rigidbody rb;
+    #endregion
+
+    #region Overridden Methods
     void Start()
     {
         player = GameObject.Find("Player");
         playerControllerScript = player.GetComponent<PlayerController>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        // Move the object when the player is flying
         if (playerControllerScript.state == PlayerController.State.FLYING)
         {
             Vector3 direction = -(player.transform.forward.normalized);
-            transform.Translate(direction * speed * Time.deltaTime);
+            rb.MovePosition(transform.position + (speed * Time.deltaTime * direction));
         }
     }
+    #endregion
 }

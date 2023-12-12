@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5340605233273257315}
   m_Layer: 0
   m_Name: Unobtainium
-  m_TagString: Untagged
+  m_TagString: Unobtainium
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
